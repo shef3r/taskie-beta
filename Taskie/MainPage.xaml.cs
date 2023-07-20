@@ -45,29 +45,18 @@ namespace Taskie
 
         private void UpdateLists(string name)
         {
-            // If the timer is running, stop it and restart it to reset the delay
             if (dialogTimer != null && dialogTimer.IsEnabled)
                 dialogTimer.Stop();
-
-            // Create a new timer with a delay of 500 milliseconds (adjust as needed)
             dialogTimer = new DispatcherTimer();
             dialogTimer.Interval = TimeSpan.FromMilliseconds(500);
             dialogTimer.Tick += async (s, e) =>
             {
-                dialogTimer.Stop(); // Stop the timer before showing the dialog
-                await ShowListCreatedDialog(name);
-                Navigation.MenuItems.Add(new Microsoft.UI.Xaml.Controls.NavigationViewItem() { Tag = name, Content = name, Icon = new SymbolIcon(Symbol.Document) });
+                dialogTimer.Stop();
+                Microsoft.UI.Xaml.Controls.NavigationViewItem item = new Microsoft.UI.Xaml.Controls.NavigationViewItem() { Tag = name, Content = name, Icon = new SymbolIcon(Symbol.Document) };
+                Navigation.MenuItems.Add(item);
             };
-            dialogTimer.Start(); // Start the timer
+            dialogTimer.Start();
         }
-
-        private async Task ShowListCreatedDialog(string listName)
-        {
-            ContentDialog dialog = new ContentDialog() { Content = $"List created: {listName}", PrimaryButtonText = "OK" };
-            await dialog.ShowAsync();
-        }
-
-
         private async void Navigation_SelectionChanged(Microsoft.UI.Xaml.Controls.NavigationView sender, Microsoft.UI.Xaml.Controls.NavigationViewSelectionChangedEventArgs args)
         {
             var selectedItem = args.SelectedItem as Microsoft.UI.Xaml.Controls.NavigationViewItem;
