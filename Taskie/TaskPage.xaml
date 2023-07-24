@@ -72,7 +72,6 @@
                                 <CheckBox Grid.Column="0"/>
                                 <StackPanel Orientation="Vertical" Grid.Column="1" VerticalAlignment="Center">
                                     <TextBlock Text="Test title"/>
-                                    <TextBlock Opacity=".7" Text="1 subtask(s)"/>
                                 </StackPanel>
                                 <Button Background="Transparent" Height="32" BorderThickness="0" Width="34" Padding="0" Grid.Column="2">
                                     <FontIcon FontSize="14" Glyph="&#xE10C;" />
@@ -90,7 +89,7 @@
                 </ListViewItem>
             </ListView>
         </ScrollViewer>
-        <AutoSuggestBox QueryIcon="Add" VerticalContentAlignment="Center" FontSize="14" Background="{StaticResource LayerFillColorDefaultBrush}" HorizontalAlignment="Stretch" Height="48" VerticalAlignment="Bottom" BorderThickness="1,1,1,1" CornerRadius="8"
+        <AutoSuggestBox QueryIcon="Add" VerticalContentAlignment="Center" FontSize="14" Background="{StaticResource LayerFillColorDefaultBrush}" HorizontalAlignment="Right" MinWidth="400" Height="48" VerticalAlignment="Bottom" BorderThickness="1" CornerRadius="8"
              PlaceholderText="Add a task..." >
         </AutoSuggestBox>
     </Grid>

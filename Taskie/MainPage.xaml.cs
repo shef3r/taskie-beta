@@ -70,7 +70,6 @@ namespace Taskie
                 }
                 else if (args.IsSettingsSelected)
                 {
-                    contentFrame.Navigate(typeof(SettingsPage));
                 }
                 else
                 {

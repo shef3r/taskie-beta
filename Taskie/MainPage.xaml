@@ -15,7 +15,6 @@
             <TextBlock Margin="42,0,0,0" VerticalAlignment="Center" FontSize="12">Taskie</TextBlock>
         </Grid>
         <muxc:NavigationView x:Name="Navigation"
-    IsSettingsVisible="True"
     IsBackButtonVisible="Visible"
     IsBackEnabled="False"
     SelectionChanged="Navigation_SelectionChanged"
@@ -24,8 +23,8 @@
     PaneDisplayMode="Left"
     ExpandedModeThresholdWidth="500"
     SelectionFollowsFocus="Disabled"
-    IsTabStop="False">
-
+    IsTabStop="False"
+    IsSettingsVisible="False">
             <Frame x:Name="contentFrame" />
         </muxc:NavigationView>
     </Grid>
