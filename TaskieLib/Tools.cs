@@ -8,11 +8,8 @@ namespace TaskieLib
 {
     public class Tools
     {
-        // Define the delegate and event for list creation
         public delegate void ListCreated(string name);
         public static event ListCreated ListCreatedEvent;
-
-        // Save a list to a JSON file
         public static void SaveList(string listName, List<ListTask> list)
         {
             try
@@ -22,12 +19,9 @@ namespace TaskieLib
             }
             catch (Exception ex)
             {
-                // Handle any exceptions that occur during saving the list
                 Console.WriteLine($"Error saving list: {ex.Message}");
             }
         }
-
-        // Get a list of existing lists
         public static string[] GetLists()
         {
             try
@@ -44,13 +38,11 @@ namespace TaskieLib
             }
             catch (Exception ex)
             {
-                // Handle any exceptions that occur during getting the list of lists
                 Console.WriteLine($"Error getting lists: {ex.Message}");
-                return new string[0]; // Return an empty array in case of an error
+                return new string[0];
             }
         }
 
-        // Read a list from a JSON file
         public static List<ListTask> ReadList(string listName)
         {
             try
@@ -63,14 +55,11 @@ namespace TaskieLib
             }
             catch (Exception ex)
             {
-                // Handle any exceptions that occur during reading the list
                 Console.WriteLine($"Error reading list: {ex.Message}");
             }
 
-            return new List<ListTask>(); // Return an empty list in case of an error
+            return new List<ListTask>();
         }
-
-        // Create a list with a given name
         public static void CreateList(string listName)
         {
             try
@@ -78,18 +67,13 @@ namespace TaskieLib
                 string newName = GenerateUniqueListName(listName);
                 string filePath = GetFilePath(newName);
                 File.Create(filePath).Close();
-
-                // Fire the ListCreated event
                 ListCreatedEvent?.Invoke(newName);
             }
             catch (Exception ex)
             {
-                // Handle any exceptions that occur during list creation
                 Console.WriteLine($"Error creating list: {ex.Message}");
             }
         }
-
-        // Delete a list with a given name
         public static void DeleteList(string listName)
         {
             try
@@ -102,12 +86,9 @@ namespace TaskieLib
             }
             catch (Exception ex)
             {
-                // Handle any exceptions that occur during list deletion
                 Console.WriteLine($"Error deleting list: {ex.Message}");
             }
         }
-
-        // Rename a list
         public static void RenameList(string oldListName, string newListName)
         {
             try
@@ -122,12 +103,10 @@ namespace TaskieLib
             }
             catch (Exception ex)
             {
-                // Handle any exceptions that occur during list renaming
                 Console.WriteLine($"Error renaming list: {ex.Message}");
             }
         }
 
-        // Generate a unique list name (if the name already exists, append "(new)")
         private static string GenerateUniqueListName(string listName)
         {
             string uniqueName = listName;
@@ -138,14 +117,11 @@ namespace TaskieLib
             }
             return uniqueName;
         }
-
-        // Get the file path for a given list name
         private static string GetFilePath(string listName)
         {
             return Path.Combine(ApplicationData.Current.LocalFolder.Path, $"{listName}.json");
         }
 
-        // Get the content of the JSON file for a given list name
         private static string GetTaskFileContent(string listName)
         {
             string filePath = GetFilePath(listName);

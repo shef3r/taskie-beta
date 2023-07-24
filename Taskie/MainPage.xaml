@@ -8,7 +8,6 @@
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     mc:Ignorable="d"
     muxc:BackdropMaterial.ApplyToRootOrPageBackground="True">
-
     <Grid>
         <Grid Background="Transparent" x:Name="TTB" VerticalAlignment="Top" Height="48">
             <Image Source="Assets\Square150x150Logo.scale-200.png" Width="16" Height="16" HorizontalAlignment="Left" Margin="16,0,0,0"/>

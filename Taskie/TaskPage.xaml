@@ -8,6 +8,55 @@
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     mc:Ignorable="d"
     Background="{StaticResource LayerFillColorDefaultBrush}">
+
+    <Page.Resources>
+        <DataTemplate x:Key="TaskItemTemplate">
+            <muxc:Expander HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch">
+                <muxc:Expander.Header>
+                    <Grid Height="64">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="32"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="34"/>
+                        </Grid.ColumnDefinitions>
+                        <CheckBox Grid.Column="0"/>
+                        <StackPanel Orientation="Vertical" Grid.Column="1" VerticalAlignment="Center">
+                            <TextBlock Text="{Binding Name}"/>
+                        </StackPanel>
+                        <Button Background="Transparent" Height="32" BorderThickness="0" Width="34" Padding="0" Grid.Column="2">
+                            <FontIcon FontSize="14" Glyph="&#xE10C;" />
+                            <Button.Flyout>
+                                <MenuFlyout>
+                                    <MenuFlyoutItem Icon="Add" Text="Add subtask"/>
+                                    <MenuFlyoutItem Icon="Delete" Text="Delete task"/>
+                                    <MenuFlyoutItem Icon="Rename" Text="Rename task"/>
+                                </MenuFlyout>
+                            </Button.Flyout>
+                        </Button>
+                    </Grid>
+                </muxc:Expander.Header>
+                <muxc:Expander.Content>
+                    <ListView SelectionMode="None" ItemsSource="{Binding SubTasks}">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ListViewItem Height="32">
+                                    <Grid Height="32">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="32"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <CheckBox Grid.Column="0" IsChecked="{Binding IsDone}"/>
+                                        <TextBlock Text="{Binding Name}" Grid.Column="1" VerticalAlignment="Center"/>
+                                    </Grid>
+                                </ListViewItem>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </muxc:Expander.Content>
+            </muxc:Expander>
+        </DataTemplate>
+    </Page.Resources>
+
     <Grid Margin="20">
         <Grid HorizontalAlignment="Stretch">
             <TextBlock x:Name="testname" FontWeight="SemiBold" FontSize="28" FontFamily="Segoe UI Variable"></TextBlock>
@@ -17,80 +66,10 @@
             </StackPanel>
         </Grid>
         <ScrollViewer HorizontalScrollMode="Disabled" HorizontalScrollBarVisibility="Hidden" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,50,0,0">
-            <ListView Margin="0,0,0,69" SelectionMode="None">
-                <ListViewItem HorizontalAlignment="Stretch" Margin="0" Padding="0">
-                    <muxc:Expander HorizontalAlignment="Stretch" x:Name="test" HorizontalContentAlignment="Stretch">
-                        <muxc:Expander.Header>
-                            <Grid Height="64">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="32"/>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="34"/>
-                                </Grid.ColumnDefinitions>
-                                <CheckBox Grid.Column="0"/>
-                                <StackPanel Orientation="Vertical" Grid.Column="1" VerticalAlignment="Center">
-                                    <TextBlock Text="Test title"/>
-                                    <TextBlock Opacity=".7" Text="1 subtask(s)"/>
-                                </StackPanel>
-                                <Button Background="Transparent" Height="32" BorderThickness="0" Width="34" Padding="0" Grid.Column="2">
-                                    <FontIcon FontSize="14" Glyph="&#xE10C;" />
-                                    <Button.Flyout>
-                                        <MenuFlyout>
-                                            <MenuFlyoutItem Icon="Add" Text="Add subtask"/>
-                                            <MenuFlyoutItem Icon="Delete" Text="Delete task"/>
-                                            <MenuFlyoutItem Icon="Rename" Text="Rename task"/>
-                                        </MenuFlyout>
-                                    </Button.Flyout>
-                                </Button>
-                            </Grid>
-                        </muxc:Expander.Header>
-                        <muxc:Expander.Content>
-                            <ListView SelectionMode="None">
-                                <ListViewItem Height="32">
-                                    <Grid Height="32">
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="32"/>
-                                            <ColumnDefinition Width="*"/>
-                                        </Grid.ColumnDefinitions>
-                                        <CheckBox Grid.Column="0"/>
-                                        <TextBlock Text="Subtask" Grid.Column="1" VerticalAlignment="Center"/>
-                                    </Grid>
-                                </ListViewItem>
-                            </ListView>
-                        </muxc:Expander.Content>
-                    </muxc:Expander>
-                </ListViewItem>
-                <ListViewItem HorizontalAlignment="Stretch" Margin="0" Padding="0">
-                    <muxc:Expander HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch">
-                        <muxc:Expander.Header>
-                            <Grid Height="64">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="32"/>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="34"/>
-                                </Grid.ColumnDefinitions>
-                                <CheckBox Grid.Column="0"/>
-                                <StackPanel Orientation="Vertical" Grid.Column="1" VerticalAlignment="Center">
-                                    <TextBlock Text="Test title"/>
-                                </StackPanel>
-                                <Button Background="Transparent" Height="32" BorderThickness="0" Width="34" Padding="0" Grid.Column="2">
-                                    <FontIcon FontSize="14" Glyph="&#xE10C;" />
-                                    <Button.Flyout>
-                                        <MenuFlyout>
-                                            <MenuFlyoutItem Icon="Add" Text="Add subtask"/>
-                                            <MenuFlyoutItem Icon="Delete" Text="Delete task"/>
-                                            <MenuFlyoutItem Icon="Rename" Text="Rename task"/>
-                                        </MenuFlyout>
-                                    </Button.Flyout>
-                                </Button>
-                            </Grid>
-                        </muxc:Expander.Header>
-                    </muxc:Expander>
-                </ListViewItem>
+            <ListView x:Name="taskListView" Margin="0,0,0,69" SelectionMode="None" ItemTemplate="{StaticResource TaskItemTemplate}">
             </ListView>
         </ScrollViewer>
-        <AutoSuggestBox QueryIcon="Add" VerticalContentAlignment="Center" FontSize="14" Background="{StaticResource LayerFillColorDefaultBrush}" HorizontalAlignment="Right" MinWidth="400" Height="48" VerticalAlignment="Bottom" BorderThickness="1" CornerRadius="8"
-             PlaceholderText="Add a task..." >
+        <AutoSuggestBox QueryIcon="Add" VerticalContentAlignment="Center" QuerySubmitted="AutoSuggestBox_QuerySubmitted" FontSize="14" Background="{StaticResource LayerFillColorDefaultBrush}" HorizontalAlignment="Right" MinWidth="400" Height="48" VerticalAlignment="Bottom" BorderThickness="1" CornerRadius="8" PlaceholderText="Add a task...">
         </AutoSuggestBox>
     </Grid>
 </Page>

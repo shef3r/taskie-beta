@@ -5,7 +5,6 @@ public class ListTask
 {
     public DateTime CreationDate { get; set; }
     public string Name { get; set; }
-    public string Description { get; set; }
     public List<ListTask> SubTasks { get; set; }
     public bool IsDone { get; set; }
 }
