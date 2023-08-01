@@ -73,8 +73,25 @@ namespace Taskie
 
         private async void AddSubTask_Click(object sender, RoutedEventArgs e)
         {
-            
+            // Get the parent task
+            ListTask parentTask = (sender as Button).DataContext as ListTask;
+            int index = Tools.ReadList(listname).IndexOf(parentTask);
+
+            // Create the subtask
+            TextBox input = new TextBox() { PlaceholderText = "Subtask name" };
+            ContentDialog dialog = new ContentDialog() { Title = "Add subtask", PrimaryButtonText = "OK", SecondaryButtonText = "Cancel", Content = input };
+            ContentDialogResult result = await dialog.ShowAsync();
+            if (result == ContentDialogResult.Primary)
+            {
+                string text = input.Text;
+                ListTask subtask = new ListTask() { Name = text };
+                parentTask.SubTasks.Add(subtask);
+                List<ListTask> tasks = Tools.ReadList(listname);
+                tasks[index] = parentTask;
+                Tools.SaveList(listname, tasks);
+            }
         }
+
 
         private async void RenameTask_Click(object sender, RoutedEventArgs e)
         {
@@ -103,8 +120,20 @@ namespace Taskie
 
         private void DeleteTask_Click(object sender, RoutedEventArgs e)
         {
-
+            ListTask taskToDelete = (sender as MenuFlyoutItem).DataContext as ListTask;
+            List<ListTask> tasks = Tools.ReadList(listname);
+            System.Diagnostics.Debug.WriteLine("before:" + tasks.Count);
+            int index = tasks.FindIndex(task => task.CreationDate == taskToDelete.CreationDate);
+            if (index != -1)
+            {
+                tasks.RemoveAt(index);
+                Tools.SaveList(listname, tasks);
+                taskListView.Items.Remove(taskToDelete);
+            }
+            System.Diagnostics.Debug.WriteLine("after:" + tasks.Count);
+            Tools.SaveList(listname, tasks);
         }
+
 
 
     }
