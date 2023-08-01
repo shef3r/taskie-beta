@@ -8,6 +8,7 @@ using Windows.UI;
 using System.Threading.Tasks;
 using System.Runtime.CompilerServices;
 using TaskieLib;
+using Windows.Networking;
 
 namespace Taskie
 {
@@ -21,6 +22,20 @@ namespace Taskie
             SetupTitleBar();
             SetupNavigationMenu();
             TaskieLib.Tools.ListCreatedEvent += UpdateLists;
+            Tools.ListDeletedEvent += ListDeleted;
+            Tools.ListRenamedEvent += ListRenamed;
+        }
+
+        private void ListRenamed(string oldname, string newname)
+        {
+            // handle renaming lists (rename in container)
+        }
+
+        private void ListDeleted(string name)
+        {
+            contentFrame.Content = string.Empty;
+            Navigation.SelectedItem = null;
+            Navigation.MenuItems.Remove(new Microsoft.UI.Xaml.Controls.NavigationViewItem() { Tag = name, Content = name, Icon = new SymbolIcon(Symbol.Document) });
         }
 
         private void SetupTitleBar()

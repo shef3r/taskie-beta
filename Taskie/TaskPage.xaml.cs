@@ -74,8 +74,8 @@ namespace Taskie
         {
             MenuFlyoutItem menuFlyoutItem = (MenuFlyoutItem)sender;
             var note = menuFlyoutItem.DataContext as ListTask;
-            TextBox input = new TextBox() { PlaceholderText = "List name", Text = note.Name };
-            ContentDialog dialog = new ContentDialog() { Title = "Rename list", PrimaryButtonText = "OK", SecondaryButtonText = "Cancel", Content = input };
+            TextBox input = new TextBox() { PlaceholderText = "Task name", Text = note.Name };
+            ContentDialog dialog = new ContentDialog() { Title = "Rename task", PrimaryButtonText = "OK", SecondaryButtonText = "Cancel", Content = input };
             ContentDialogResult result = await dialog.ShowAsync();
             if (result == ContentDialogResult.Primary)
             {
@@ -99,7 +99,6 @@ namespace Taskie
         {
             ListTask taskToDelete = (sender as MenuFlyoutItem).DataContext as ListTask;
             List<ListTask> tasks = Tools.ReadList(listname);
-            System.Diagnostics.Debug.WriteLine("before:" + tasks.Count);
             int index = tasks.FindIndex(task => task.CreationDate == taskToDelete.CreationDate);
             if (index != -1)
             {
@@ -107,11 +106,26 @@ namespace Taskie
                 Tools.SaveList(listname, tasks);
                 taskListView.Items.Remove(taskToDelete);
             }
-            System.Diagnostics.Debug.WriteLine("after:" + tasks.Count);
             Tools.SaveList(listname, tasks);
         }
 
+        private async void RenameList_Click(object sender, RoutedEventArgs e)
+        {
+            TextBox input = new TextBox() { PlaceholderText = "List name", Text = listname };
+            ContentDialog dialog = new ContentDialog() { Title = "Rename list", PrimaryButtonText = "OK", SecondaryButtonText = "Cancel", Content = input };
+            ContentDialogResult result = await dialog.ShowAsync();
+            if (result == ContentDialogResult.Primary)
+            {
+                string text = input.Text;
+                Tools.RenameList(listname, text);
+                listname = text;
+                testname.Text = listname;
+            }
+        }
 
-
+        private void DeleteList_Click(object sender, RoutedEventArgs e)
+        {
+            Tools.DeleteList(listname);
+        }
     }
 }

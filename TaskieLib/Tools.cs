@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Runtime.CompilerServices;
 using Windows.Storage;
 
 namespace TaskieLib
@@ -10,6 +11,12 @@ namespace TaskieLib
     {
         public delegate void ListCreated(string name);
         public static event ListCreated ListCreatedEvent;
+
+        public delegate void ListDeleted(string name);
+        public static event ListDeleted ListDeletedEvent;
+
+        public delegate void ListRenamed(string oldname, string newname);
+        public static event ListRenamed ListRenamedEvent;
         public static void SaveList(string listName, List<ListTask> list)
         {
             try
@@ -82,6 +89,7 @@ namespace TaskieLib
                 if (File.Exists(filePath))
                 {
                     File.Delete(filePath);
+                    ListDeletedEvent.Invoke(listName);
                 }
             }
             catch (Exception ex)
@@ -99,6 +107,7 @@ namespace TaskieLib
                 if (File.Exists(oldFilePath))
                 {
                     File.Move(oldFilePath, newFilePath);
+                    ListRenamedEvent.Invoke(oldListName, newListName);
                 }
             }
             catch (Exception ex)
