@@ -27,7 +27,6 @@
                             <FontIcon FontSize="14" Glyph="&#xE10C;" />
                             <Button.Flyout>
                                 <MenuFlyout>
-                                    <MenuFlyoutItem Icon="Add" Click="AddSubTask_Click" Text="Add subtask"/>
                                     <MenuFlyoutItem Icon="Delete" Click="DeleteTask_Click" Text="Delete task"/>
                                     <MenuFlyoutItem Icon="Rename" Click="RenameTask_Click" Text="Rename task"/>
                                 </MenuFlyout>
@@ -35,24 +34,6 @@
                         </Button>
                     </Grid>
                 </muxc:Expander.Header>
-                <muxc:Expander.Content>
-                    <ListView SelectionMode="None" ItemsSource="{Binding SubTasks}">
-                        <ListView.ItemTemplate>
-                            <DataTemplate>
-                                <ListViewItem Height="32">
-                                    <Grid Height="32">
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="32"/>
-                                            <ColumnDefinition Width="*"/>
-                                        </Grid.ColumnDefinitions>
-                                        <CheckBox Grid.Column="0" IsChecked="{Binding IsDone}"/>
-                                        <TextBlock Text="{Binding Name}" Grid.Column="1" VerticalAlignment="Center"/>
-                                    </Grid>
-                                </ListViewItem>
-                            </DataTemplate>
-                        </ListView.ItemTemplate>
-                    </ListView>
-                </muxc:Expander.Content>
             </muxc:Expander>
         </DataTemplate>
     </Page.Resources>

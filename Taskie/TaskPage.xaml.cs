@@ -71,28 +71,6 @@ namespace Taskie
             Tools.SaveList(listname, tasks);
         }
 
-        private async void AddSubTask_Click(object sender, RoutedEventArgs e)
-        {
-            // Get the parent task
-            ListTask parentTask = (sender as Button).DataContext as ListTask;
-            int index = Tools.ReadList(listname).IndexOf(parentTask);
-
-            // Create the subtask
-            TextBox input = new TextBox() { PlaceholderText = "Subtask name" };
-            ContentDialog dialog = new ContentDialog() { Title = "Add subtask", PrimaryButtonText = "OK", SecondaryButtonText = "Cancel", Content = input };
-            ContentDialogResult result = await dialog.ShowAsync();
-            if (result == ContentDialogResult.Primary)
-            {
-                string text = input.Text;
-                ListTask subtask = new ListTask() { Name = text };
-                parentTask.SubTasks.Add(subtask);
-                List<ListTask> tasks = Tools.ReadList(listname);
-                tasks[index] = parentTask;
-                Tools.SaveList(listname, tasks);
-            }
-        }
-
-
         private async void RenameTask_Click(object sender, RoutedEventArgs e)
         {
             MenuFlyoutItem menuFlyoutItem = (MenuFlyoutItem)sender;

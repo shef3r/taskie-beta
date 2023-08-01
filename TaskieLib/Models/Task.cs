@@ -35,19 +35,6 @@ public class ListTask : INotifyPropertyChanged
         }
     }
 
-    public List<ListTask> SubTasks
-    {
-        get { return _subTasks; }
-        set
-        {
-            if (_subTasks != value)
-            {
-                _subTasks = value;
-                OnPropertyChanged(nameof(SubTasks));
-            }
-        }
-    }
-
     public bool IsDone
     {
         get { return _isDone; }
