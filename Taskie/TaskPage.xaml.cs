@@ -28,6 +28,8 @@ namespace Taskie
 
         public string listname { get; set; }
 
+
+
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             if (e.Parameter != null)
@@ -68,5 +70,42 @@ namespace Taskie
             taskListView.Items.Add(task);
             Tools.SaveList(listname, tasks);
         }
+
+        private async void AddSubTask_Click(object sender, RoutedEventArgs e)
+        {
+            
+        }
+
+        private async void RenameTask_Click(object sender, RoutedEventArgs e)
+        {
+            MenuFlyoutItem menuFlyoutItem = (MenuFlyoutItem)sender;
+            var note = menuFlyoutItem.DataContext as ListTask;
+            TextBox input = new TextBox() { PlaceholderText = "List name", Text = note.Name };
+            ContentDialog dialog = new ContentDialog() { Title = "Rename list", PrimaryButtonText = "OK", SecondaryButtonText = "Cancel", Content = input };
+            ContentDialogResult result = await dialog.ShowAsync();
+            if (result == ContentDialogResult.Primary)
+            {
+                string text = input.Text;
+                note.Name = text;
+                List<ListTask> tasks = new List<ListTask>();
+                if (Tools.ReadList(listname) != null && (Tools.ReadList(listname)).Count > 0)
+                {
+                    foreach (ListTask task2add in Tools.ReadList(listname))
+                    {
+                        tasks.Add(task2add);
+                    }
+                };
+                int index = tasks.FindIndex(task => task.CreationDate == note.CreationDate);
+                tasks[index] = note;
+                Tools.SaveList(listname, tasks);
+            }
+        }
+
+        private void DeleteTask_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+
     }
 }

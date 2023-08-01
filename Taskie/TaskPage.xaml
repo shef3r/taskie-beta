@@ -27,9 +27,9 @@
                             <FontIcon FontSize="14" Glyph="&#xE10C;" />
                             <Button.Flyout>
                                 <MenuFlyout>
-                                    <MenuFlyoutItem Icon="Add" Text="Add subtask"/>
-                                    <MenuFlyoutItem Icon="Delete" Text="Delete task"/>
-                                    <MenuFlyoutItem Icon="Rename" Text="Rename task"/>
+                                    <MenuFlyoutItem Icon="Add" Click="AddSubTask_Click" Text="Add subtask"/>
+                                    <MenuFlyoutItem Icon="Delete" Click="DeleteTask_Click" Text="Delete task"/>
+                                    <MenuFlyoutItem Icon="Rename" Click="RenameTask_Click" Text="Rename task"/>
                                 </MenuFlyout>
                             </Button.Flyout>
                         </Button>
