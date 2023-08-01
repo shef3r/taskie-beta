@@ -63,8 +63,7 @@ namespace Taskie
             {
                 Name = args.QueryText,
                 CreationDate = DateTime.Now,
-                IsDone = false,
-                SubTasks = new List<ListTask>()
+                IsDone = false
             };
             tasks.Add(task);
             taskListView.Items.Add(task);

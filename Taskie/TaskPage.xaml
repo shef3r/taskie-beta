@@ -11,30 +11,26 @@
 
     <Page.Resources>
         <DataTemplate x:Key="TaskItemTemplate">
-            <muxc:Expander HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch">
-                <muxc:Expander.Header>
-                    <Grid Height="64">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="32"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="34"/>
-                        </Grid.ColumnDefinitions>
-                        <CheckBox Grid.Column="0"/>
-                        <StackPanel Orientation="Vertical" Grid.Column="1" VerticalAlignment="Center">
-                            <TextBlock Text="{Binding Name}"/>
-                        </StackPanel>
-                        <Button Background="Transparent" Height="32" BorderThickness="0" Width="34" Padding="0" Grid.Column="2">
-                            <FontIcon FontSize="14" Glyph="&#xE10C;" />
-                            <Button.Flyout>
-                                <MenuFlyout>
-                                    <MenuFlyoutItem Icon="Delete" Click="DeleteTask_Click" Text="Delete task"/>
-                                    <MenuFlyoutItem Icon="Rename" Click="RenameTask_Click" Text="Rename task"/>
-                                </MenuFlyout>
-                            </Button.Flyout>
-                        </Button>
-                    </Grid>
-                </muxc:Expander.Header>
-            </muxc:Expander>
+            <Grid HorizontalAlignment="Stretch" Height="58" Background="{StaticResource LayerFillColorDefaultBrush}" Padding="15,5,15,5" Margin="0,0,0,5" CornerRadius="8" BorderThickness="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="32"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="34"/>
+                </Grid.ColumnDefinitions>
+                <CheckBox Grid.Column="0"/>
+                <StackPanel Orientation="Vertical" Grid.Column="1" VerticalAlignment="Center">
+                    <TextBlock Text="{Binding Name}"/>
+                </StackPanel>
+                <Button Background="Transparent" Height="32" BorderThickness="0" Width="34" Padding="0" Grid.Column="2">
+                    <FontIcon FontSize="14" Glyph="&#xE10C;" />
+                    <Button.Flyout>
+                        <MenuFlyout>
+                            <MenuFlyoutItem Icon="Delete" Click="DeleteTask_Click" Text="Delete task"/>
+                            <MenuFlyoutItem Icon="Rename" Click="RenameTask_Click" Text="Rename task"/>
+                        </MenuFlyout>
+                    </Button.Flyout>
+                </Button>
+            </Grid>
         </DataTemplate>
     </Page.Resources>
 
@@ -48,6 +44,11 @@
         </Grid>
         <ScrollViewer HorizontalScrollMode="Disabled" HorizontalScrollBarVisibility="Hidden" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,50,0,0">
             <ListView x:Name="taskListView" Margin="0,0,0,69" SelectionMode="None" ItemTemplate="{StaticResource TaskItemTemplate}">
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                    </Style>
+                </ListView.ItemContainerStyle>
             </ListView>
         </ScrollViewer>
         <AutoSuggestBox QueryIcon="Add" VerticalContentAlignment="Center" QuerySubmitted="AutoSuggestBox_QuerySubmitted" FontSize="14" Background="{StaticResource LayerFillColorDefaultBrush}" HorizontalAlignment="Right" MinWidth="400" Height="48" VerticalAlignment="Bottom" BorderThickness="1" CornerRadius="8" PlaceholderText="Add a task...">

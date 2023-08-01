@@ -6,7 +6,6 @@ public class ListTask : INotifyPropertyChanged
 {
     private DateTime _creationDate;
     private string _name;
-    private List<ListTask> _subTasks;
     private bool _isDone;
 
     public DateTime CreationDate
