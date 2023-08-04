@@ -132,13 +132,18 @@ namespace Taskie
         {
             ListTask tasktoChange = (sender as CheckBox).DataContext as ListTask;
             List<ListTask> tasks = Tools.ReadList(listname);
-            int index = tasks.FindIndex(task => task.CreationDate == tasktoChange.CreationDate);
-            if (index != -1)
+            try
             {
-                tasktoChange.IsDone = (bool)(sender as CheckBox).IsChecked;
-                tasks[index] = tasktoChange;
-                Tools.SaveList(listname, tasks);
+                int index = tasks.FindIndex(task => task.CreationDate == tasktoChange.CreationDate);
+                if (index != -1)
+                {
+                    tasktoChange.IsDone = (bool)(sender as CheckBox).IsChecked;
+                    tasks[index] = tasktoChange;
+                    Tools.SaveList(listname, tasks);
+                }
             }
+            catch { }
+            
         }
     }
 }
