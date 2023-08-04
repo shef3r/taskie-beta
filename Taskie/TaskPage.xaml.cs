@@ -127,5 +127,18 @@ namespace Taskie
         {
             Tools.DeleteList(listname);
         }
+
+        private void TaskStateChanged(object sender, RoutedEventArgs e)
+        {
+            ListTask tasktoChange = (sender as CheckBox).DataContext as ListTask;
+            List<ListTask> tasks = Tools.ReadList(listname);
+            int index = tasks.FindIndex(task => task.CreationDate == tasktoChange.CreationDate);
+            if (index != -1)
+            {
+                tasktoChange.IsDone = (bool)(sender as CheckBox).IsChecked;
+                tasks[index] = tasktoChange;
+                Tools.SaveList(listname, tasks);
+            }
+        }
     }
 }

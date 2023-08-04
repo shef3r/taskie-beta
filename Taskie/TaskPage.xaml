@@ -17,7 +17,7 @@
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="34"/>
                 </Grid.ColumnDefinitions>
-                <CheckBox Grid.Column="0"/>
+                <CheckBox Grid.Column="0" Checked="TaskStateChanged" Unchecked="TaskStateChanged" IsChecked="{Binding IsDone}"/>
                 <StackPanel Orientation="Vertical" Grid.Column="1" VerticalAlignment="Center">
                     <TextBlock Text="{Binding Name}"/>
                 </StackPanel>
