@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Runtime.CompilerServices;
 using TaskieLib;
 using Windows.Networking;
+using Windows.UI.Xaml.Controls.Primitives;
 
 namespace Taskie
 {
@@ -28,14 +29,35 @@ namespace Taskie
 
         private void ListRenamed(string oldname, string newname)
         {
-            // handle renaming lists (rename in container)
+            foreach (var item in Navigation.MenuItems)
+            {
+                if (item is Microsoft.UI.Xaml.Controls.NavigationViewItem navigationItem)
+                {
+                    if (navigationItem.Tag.ToString() == oldname)
+                    {
+                        navigationItem.Tag = newname;
+                        navigationItem.Content = newname;
+                        break;
+                    }
+                }
+            }
         }
 
         private void ListDeleted(string name)
         {
-            contentFrame.Content = string.Empty;
+            contentFrame.Content = new StackPanel();
             Navigation.SelectedItem = null;
-            Navigation.MenuItems.Remove(new Microsoft.UI.Xaml.Controls.NavigationViewItem() { Tag = name, Content = name, Icon = new SymbolIcon(Symbol.Document) });
+            foreach (var item in Navigation.MenuItems)
+            {
+                if (item is Microsoft.UI.Xaml.Controls.NavigationViewItem navigationItem)
+                {
+                    if (navigationItem.Tag.ToString() == name)
+                    {
+                        Navigation.MenuItems.Remove(item);
+                        break;
+                    }
+                }
+            }
         }
 
         private void SetupTitleBar()
