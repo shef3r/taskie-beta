@@ -73,6 +73,7 @@ namespace Taskie
         private void SetupNavigationMenu()
         {
             Navigation.MenuItems.Add(new Microsoft.UI.Xaml.Controls.NavigationViewItem() { Tag = "AddItem", Content = "Add a new list", Icon = new SymbolIcon(Symbol.Add) });
+            Navigation.MenuItems.Add(new Microsoft.UI.Xaml.Controls.NavigationViewItem() { Tag = "ExportImport", Content = "Export/Import lists", Icon = new SymbolIcon(Symbol.Import) });
             Navigation.MenuItems.Add(new Microsoft.UI.Xaml.Controls.NavigationViewItemSeparator() { Content = "Your lists" });
             foreach (string listName in TaskieLib.Tools.GetLists())
             {
@@ -104,6 +105,10 @@ namespace Taskie
                     contentFrame.Content = null;
                     sender.SelectedItem = null;
                     await ShowAddItemDialog();
+                }
+                else if ((string)selectedItem.Tag == "ExportImport")
+                {
+                    contentFrame.Navigate(typeof(ExportImportPage));
                 }
                 else if (args.IsSettingsSelected)
                 {

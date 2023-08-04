@@ -1,8 +1,11 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
+using System.IO.Compression;
 using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 using Windows.Storage;
 
 namespace TaskieLib
@@ -139,6 +142,16 @@ namespace TaskieLib
                 return File.ReadAllText(filePath);
             }
             return null;
+        }
+
+        public static async Task<StorageFile> ExportedLists()
+        {
+            StorageFolder localFolder = ApplicationData.Current.LocalFolder;
+            StorageFolder tempFolder = ApplicationData.Current.TemporaryFolder;
+            ZipFile.CreateFromDirectory(localFolder.Path, $"{tempFolder.Path}\\Export.taskie");
+            StorageFile exportedFile = await tempFolder.GetFileAsync("Export.taskie");
+            await exportedFile.MoveAsync(localFolder, "Export.taskie", NameCollisionOption.ReplaceExisting);
+            return exportedFile;
         }
     }
 }
