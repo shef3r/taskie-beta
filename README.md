@@ -2,6 +2,8 @@
 <p align=center>Simple to-do app for Windows 10/11. Made with <b>UWP</b>.</p>
 
 ---
+# THIS VERSION WILL SOON BE DEPRECATED.
+This is the last open-source version of Taskie. The v1 release will be entirely closed-source. I do still accept translation requests and bug reports via Discord @shef3r or my channel on [Developer Sanctuary](https://discord.gg/windows-apps-hub-714581497222398064).
 
 ### Need a simple to-do list?
 I got you. This app got a simple interface and basic file structure. Get in on the <a href="/releases">releases</a> page.
